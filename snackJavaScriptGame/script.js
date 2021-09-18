@@ -40,9 +40,9 @@ document.addEventListener("keydown", update);
 function update(event) {
   console.log(snake[0].x);
   if (snake[0].x < 0) return;
-  if (snake[0].x > 480) return;      
+  if (snake[0].x > 480) return;
   if (snake[0].y < 0) return;
-  if (snake[0].y > 480) return;        
+  if (snake[0].y > 480) return;
 
   if (event.code == "ArrowRight" && direction != "left") direction = "right";
   if (event.code == "ArrowDown" && direction != "up") direction = "down";
