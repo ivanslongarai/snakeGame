@@ -4,6 +4,8 @@ let box = 32;
 
 let snake = [];
 
+let points = 0;
+
 snake[0] = {
   y: 8 * box,
   x: 8 * box,
@@ -17,25 +19,31 @@ let food = {
 };
 
 function createBackground() {
-  context.fillStyle = "lightgreen";
+  context.fillStyle = "#32322f";
   context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
 function createSnake() {
   for (let i = 0; i < snake.length; i++) {
-    context.fillStyle = "green";
+    context.fillStyle = "#e6ac00";
     context.fillRect(snake[i].x, snake[i].y, box, box);
   }
 }
 
 function drawFood() {
-  context.fillStyle = "red";
+  context.fillStyle = "#ffff66";
   context.fillRect(food.x, food.y, box, box);
 }
 
 document.addEventListener("keydown", update);
 
 function update(event) {
+  console.log(snake[0].x);
+  if (snake[0].x < 0) return;
+  if (snake[0].x > 480) return;      
+  if (snake[0].y < 0) return;
+  if (snake[0].y > 480) return;        
+
   if (event.code == "ArrowRight" && direction != "left") direction = "right";
   if (event.code == "ArrowDown" && direction != "up") direction = "down";
   if (event.code == "ArrowLeft" && direction != "right") direction = "left";
@@ -46,7 +54,7 @@ function startGame() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(game);
-      alert("Game Over :(");
+      alert("Game Over! Points: " + points);
     }
   }
 
@@ -71,6 +79,7 @@ function startGame() {
   if (snakeX != food.x || snakeY != food.y) {
     snake.pop();
   } else {
+    points += 1;
     food.x = Math.floor(Math.random() * 15 + 1) * box;
     food.y = Math.floor(Math.random() * 15 + 1) * box;
   }
@@ -83,4 +92,4 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 150);
+let game = setInterval(startGame, 100);
