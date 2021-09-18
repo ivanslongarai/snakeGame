@@ -61,7 +61,12 @@ function startGame() {
   if (direction == "down") snakeY += box;
   if (direction == "up") snakeY -= box;
 
-  snake.pop();
+  if (snakeX != food.x || snakeY != food.y) {
+    snake.pop();
+  } else {
+    food.x = Math.floor(Math.random() * 15 + 1) * box;
+    food.y = Math.floor(Math.random() * 15 + 1) * box;
+  }
 
   let newHead = {
     x: snakeX,
@@ -71,4 +76,4 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 200);
+let game = setInterval(startGame, 150);
